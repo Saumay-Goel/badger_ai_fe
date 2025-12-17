@@ -32,12 +32,9 @@ export default function Hero() {
               href="/SignIn"
               className="px-8 py-4 bg-indigo-600 text-white rounded-xl font-semibold shadow-xl shadow-indigo-500/25 hover:bg-indigo-700 hover:-translate-y-1 transition-all flex items-center justify-center gap-2 group"
             >
-              checkout
+              Checkout
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
-            {/* <button className="px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-xl font-semibold hover:border-indigo-300 hover:text-indigo-600 hover:bg-indigo-50/50 transition-all shadow-sm">
-              View Demo
-            </button> */}
           </div>
 
           <div className="mt-8 flex items-center gap-4 text-sm text-slate-500">
@@ -83,8 +80,8 @@ export default function Hero() {
                 </div>
                 <div className="bg-white border border-slate-100 p-3 rounded-2xl rounded-tl-none shadow-sm text-slate-700 w-full">
                   <p>
-                    Mujhe 200 sheets SS 304 Grade chahiye Okhla Ph-3 factory ke
-                    liye. GST bill ke sath best rate nikalo urgent.
+                    I need 200 sheets of SS 304 Grade for the Okhla Ph-3
+                    factory. Get me the best rates with a GST bill urgently.
                   </p>
                 </div>
               </div>
@@ -101,7 +98,7 @@ export default function Hero() {
                 </div>
                 <div className="bg-indigo-600 text-white p-3 rounded-2xl rounded-tr-none shadow-md w-full">
                   <p className="mb-2">
-                    Update: Sir, 3 vendors se quote aagaya hai.
+                    Update: Sir, I have received quotes from 3 vendors.
                   </p>
                   <div className="bg-white/10 rounded-lg p-2 space-y-2 text-xs">
                     <div className="flex justify-between items-center border-b border-white/10 pb-1">
@@ -120,7 +117,7 @@ export default function Hero() {
             {/* Input Area Mock */}
             <div className="mt-6 pt-4 border-t border-slate-100 flex gap-2">
               <div className="h-10 bg-slate-50 rounded-lg flex-1 border border-slate-200 flex items-center px-3 text-gray-400 text-xs">
-                Type or speak in Hindi/English...
+                Type your purchase requirements...
               </div>
               <div className="h-10 w-10 bg-indigo-600 rounded-lg flex items-center justify-center">
                 <ArrowRight className="w-4 h-4 text-white" />

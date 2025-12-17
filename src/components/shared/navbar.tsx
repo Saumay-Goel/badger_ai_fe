@@ -2,13 +2,13 @@
 
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Menu, X, LogOut, User } from "lucide-react";
+import { Menu, X, LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
-  const { user, logout } = useAuth();
+  const { user, logout, isLoading } = useAuth();
   const pathname = usePathname();
   const [scrollY, setScrollY] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -61,7 +61,9 @@ export default function Navbar() {
               </a>
             ))}
 
-            {user ? (
+            {isLoading ? (
+              <div className="w-28 h-10 bg-slate-100 animate-pulse rounded-lg" />
+            ) : user ? (
               <div className="flex items-center gap-4 pl-4 border-l border-slate-200">
                 <div className="flex flex-col text-right hidden lg:block">
                   <span className="text-sm font-semibold text-slate-900">
@@ -72,7 +74,7 @@ export default function Navbar() {
 
                 <button
                   onClick={logout}
-                  className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 text-sm font-medium rounded-lg hover:bg-red-100 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 text-sm font-medium rounded-lg hover:bg-red-100 transition-colors cursor-pointer"
                 >
                   <LogOut className="w-4 h-4" />
                   Sign Out
@@ -117,7 +119,9 @@ export default function Navbar() {
             ))}
             <hr className="border-slate-100" />
 
-            {user ? (
+            {isLoading ? (
+              <div className="w-full h-12 bg-slate-100 animate-pulse rounded-xl" />
+            ) : user ? (
               <div className="flex flex-col gap-4">
                 <div className="p-4 bg-slate-50 rounded-xl">
                   <p className="font-semibold text-slate-900">

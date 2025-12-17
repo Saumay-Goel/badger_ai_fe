@@ -1,7 +1,14 @@
 "use client";
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+  useCallback,
+} from "react";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import api from "@/utils/api";
 
 type User = {
   id: number;
@@ -15,6 +22,8 @@ type AuthContextType = {
   user: User | null;
   login: (user: User) => void;
   logout: () => void;
+  refreshUser: () => Promise<void>;
+  isLoading: boolean;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -27,11 +36,28 @@ export function AuthProvider({
   initialUser: User | null;
 }) {
   const [user, setUser] = useState<User | null>(initialUser);
+  const [isLoading, setIsLoading] = useState(!initialUser);
   const router = useRouter();
+
+  const refreshUser = useCallback(async () => {
+    try {
+      const { data } = await api.get("/auth/users/me");
+      setUser(data);
+    } catch (error) {
+      setUser(null);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
-    setUser(initialUser);
-  }, [initialUser]);
-  // console.log("AUTH PROVIDER RECEIVED:", initialUser);
+    if (initialUser) {
+      setUser(initialUser);
+      setIsLoading(false);
+      return;
+    }
+    refreshUser();
+  }, [initialUser, refreshUser]);
 
   const login = (userData: User) => {
     setUser(userData);
@@ -40,7 +66,7 @@ export function AuthProvider({
 
   const logout = async () => {
     try {
-      await fetch("/api/auth/logout", { method: "POST" });
+      await api.post("/auth/logout");
       setUser(null);
       router.push("/");
       router.refresh();
@@ -50,7 +76,9 @@ export function AuthProvider({
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, login, logout, refreshUser, isLoading }}
+    >
       {children}
     </AuthContext.Provider>
   );
